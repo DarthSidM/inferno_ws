@@ -26,9 +26,7 @@ def drive(xData,yData):
 
 def joy_callback(data):
     # Assuming data.axes is a list containing the axis values
-    # For examplde, data.axes[0] is the value of the first axis
-    axis_values = data.axes
-    # Process and use the axis values as needed
+    # For example, data.axes[0] is the value of the first axis
     drive(int(data.axes[3]*255), int(data.axes[1]*255))
 
 def joystick_listener():
