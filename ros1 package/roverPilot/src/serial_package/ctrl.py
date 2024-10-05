@@ -1,9 +1,10 @@
 import serial
 
 class control():
-    def __init__(self, port, baud_rate):
+    def __init__(self, port, baud_rate, mode):
         self.port = port
         self.baud_rate = baud_rate
+        self.mode = mode
         self.driveState = [0, 0]
         self.armState = [0, 0, 0]
 
@@ -64,7 +65,7 @@ class control():
         elif pitchData:
             if pitchData > 0:
                 self.armState = [3, 0, 127]
-                armStatus = f"Pitch\tDir: 1\tPWM: 127"
+                armStatus = f"Pitch\tDir: 0\tPWM: 127"
             else:
                 self.armState = [3, 1, 127]
                 armStatus = f"Pitch\tDir: 1\tPWM: 127"
@@ -84,6 +85,11 @@ class control():
         return "Arm State: " + armStatus
 
     def serialWrite(self):
-        #command = bytearray(self.driveState)
-        command = bytearray(self.armState)
+        if self.mode == "drive":
+            command = bytearray(self.driveState)
+        elif self.mode == "arm":
+            command = bytearray(self.armState)
+        else:
+            print("Error: Mode is not specified correctly. Possible values of mode are arm and drive.")
+            exit()
         self.serial_port.write(command)
