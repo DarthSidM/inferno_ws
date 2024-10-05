@@ -3,12 +3,12 @@ import rospy
 from sensor_msgs.msg import Joy
 from serial_package import ctrl
 
-arm = ctrl.control("/dev/ttyUSB0", 115200)
-arm.connect()
+armObj = ctrl.control("/dev/ttyUSB0", 115200)
+armObj.connect()
 
 def callback(data):
-    status = arm.driveCtrl(round(data.axes[0]*255), round(data.axes[1]*255))
-    arm.serialWrite()
+    status = armObj.ctrl(round(data.axes[0]*255), round(data.axes[1]*255), round(data.axes[5]*255), data.buttons)
+    armObj.serialWrite()
     rospy.loginfo("%s", status)
 
 def listener():

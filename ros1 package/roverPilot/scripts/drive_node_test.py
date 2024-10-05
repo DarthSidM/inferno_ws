@@ -3,11 +3,13 @@ import rospy
 from sensor_msgs.msg import Joy
 from serial_package import ctrl
 
-drive = ctrl.control("/dev/ttyUSB0", 115200)
+driveObj = ctrl.drive("/dev/ttyUSB0", 115200)
+
 
 def callback(data):
-    status = drive.driveCtrl(round(data.axes[0]*255), round(data.axes[1]*255))
+    status = driveObj.ctrl(round(data.axes[0]*255), round(data.axes[1]*255))
     rospy.loginfo("%s", status)
+
 
 def listener():
 

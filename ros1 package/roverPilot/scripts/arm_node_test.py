@@ -3,10 +3,10 @@ import rospy
 from sensor_msgs.msg import Joy
 from serial_package import ctrl
 
-arm = ctrl.control("/dev/ttyUSB0", 115200)
+armObj = ctrl.control("/dev/ttyUSB0", 115200, "arm")
 
 def callback(data):
-    status = arm.armCtrl(round(data.axes[0]*255), round(data.axes[1]*255), data.axes[5]*255, data.buttons)
+    status = armObj.armCtrl(round(data.axes[0]*255), round(data.axes[1]*255), data.axes[5]*255, data.buttons)
     rospy.loginfo("%s", status)
 
 def listener():
