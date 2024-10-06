@@ -29,3 +29,26 @@ Below are the pin numbers used for the ESP32 to control the rover's drive system
   - Base: `{dir: 22, pwm: 23}`
   - Roll: `{dir: 13, pwm: 12}`
   - Gripper: `{dir: 14, pwm: 27}`
+
+
+## Installation
+This repository contains package for both ROS noetic and ROS2 humble.
+### For ROS:
+Place the `roverPilot` directory inside `src` folder of your workspace. Run the following commands and replace `catkin_ws` with workspace in which you want to install package.
+```bash
+cd ~/catkin_ws
+catkin_make
+source devel/setup.sh
+```
+
+## Usage
+### For ROS:
+USe the following command to run nodes:
+```bash
+rosun roverPilot <node_name>
+```
+Possible values of <node_name>:
+`drive_node_test` : To test the working of drive.
+`drive_node` : To run the drive node.
+`arm_node_test` : To test the working of arm.
+`arm_node` : To run the arm node.
