@@ -7,7 +7,7 @@ driveObj = ctrl.drive("/dev/ttyUSB0", 115200)
 driveObj.connect()
 
 def callback(data):
-    status = driveObj.ctrl(round(data.axes[0]*255), round(data.axes[1]*255))
+    status = driveObj.setState(round(data.axes[0]*255), round(data.axes[1]*255))
     driveObj.serialWrite()
     rospy.loginfo("%s", status)
 
