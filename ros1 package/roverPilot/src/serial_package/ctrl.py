@@ -15,7 +15,7 @@ class control():
 
 
 class drive(control):
-    def ctrl(self, xData, yData):
+    def setState(self, xData, yData):
         if xData > 0:
             self.state = [4, abs(xData)]
             status = f"Right\tPWM:{abs(xData)}"
@@ -35,7 +35,7 @@ class drive(control):
 
 
 class arm(control):
-    def ctrl(self, xData, yData, pitchData, buttons):
+    def setState(self, xData, yData, pitchData, buttons):
         #Button is 0
         if xData > 0 and buttons[0] == 0:
             self.state = [4, 0, abs(xData)]
