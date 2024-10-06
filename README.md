@@ -1,1 +1,31 @@
-# inferno_ws
+# INFERNO Rover Code
+
+Welcome to the official repository for Team INFERNO's Rover! This repository contains all the necessary code to control our rover's arm and driving movement using an ESP32, as well as integrate it with both ROS1 and ROS2 for joystick-based control.
+
+## Repository Overview
+
+### 1. **ESP32 Code**
+- **Arm Control**: Code for controlling the robotic arm's movements.
+- **Drive Control**: Code for handling the driving mechanism, including forward, backward, left, right, and speed control.
+
+### 2. **ROS Integration**
+- **Cross Compatibility**: This repository provides integration with both ROS1 and ROS2, enabling joystick movement for controlling the rover.
+- **Joystick Integration**: A ROS node listens to the `/joy` topic, capturing joystick inputs and translating them into commands that are sent to the ESP32 for precise and intuitive control.
+
+### 3. **Serial Communication**
+This repository includes `ctrl.py`, which manages both the rover’s drive system and robotic arm via serial communication with the ESP32. Joystick inputs are captured through a ROS node, processed, and sent as serial commands to control the rover’s movements and arm functions in real-time.
+
+### 4. **Pin Configuration**
+Below are the pin numbers used for the ESP32 to control the rover's drive system and robotic arm:
+
+- **Drive System:**
+  - Left Motor: `{dir: 4, pwm: 2}`
+  - Right Motor: `{dir: 18, pwm: 19}`
+
+- **Arm Control:**
+  - Actuator 1: `{dir: 2, pwm: 4}`
+  - Actuator 2: `{dir: 5, pwm: 18}`
+  - Pitch: `{dir: 19, pwm: 21}`
+  - Base: `{dir: 22, pwm: 23}`
+  - Roll: `{dir: 13, pwm: 12}`
+  - Gripper: `{dir: 14, pwm: 27}`
