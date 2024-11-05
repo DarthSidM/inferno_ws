@@ -2,7 +2,7 @@ import rospy
 from sensor_msgs.msg import Joy
 import serial
 
-ser = serial.Serial('/dev/ttyACM0', '115200')
+ser = serial.Serial('/dev/ttyUSB0', '115200')
 
 def drive(xData,yData):
     if xData > 0:
