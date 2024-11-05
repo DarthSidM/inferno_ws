@@ -1,9 +1,9 @@
-uint8_t actuator1[] = {2, 4};
-uint8_t actuator2[] = {5, 18};
-uint8_t pitch[] = {19, 21};
-uint8_t base[] = {22, 23};
-uint8_t roll[] = {13, 12};
-uint8_t grip[] = {14, 27};
+uint8_t actuator1[] = {19, 21}; //md1
+uint8_t actuator2[] = {22, 23}; //md1
+uint8_t pitch[] = {32, 33};//md2
+uint8_t base[] = {25, 26};//md2
+uint8_t roll[] = {5, 4};//md3
+uint8_t grip[] = {2, 15};//md3
 
 
 void setMotor(uint8_t motor[]){
