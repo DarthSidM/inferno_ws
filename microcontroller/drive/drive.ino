@@ -1,5 +1,5 @@
-uint8_t leftMotor[] = {4, 2};  // {dir, pwm}
-uint8_t rightMotor[] = {18, 19}; // {dir, pwm}
+uint8_t leftMotor[] = {26, 25};  // {dir1, pwm1} //md2
+uint8_t rightMotor[] = {33, 32}; // {dir2, pwm2} //md2
 
 // Function to initialize motor pins
 void setMotor(uint8_t motor[]) {
