@@ -19,16 +19,16 @@ This repository includes `ctrl.py`, which manages both the rover’s drive syste
 Below are the pin numbers used for the ESP32 to control the rover's drive system and robotic arm:
 
 - **Drive System:**
-  - Left Motor: `{dir: 4, pwm: 2}`
-  - Right Motor: `{dir: 18, pwm: 19}`
+  - Left Motor: `{dir: 26, pwm: 25}`
+  - Right Motor: `{dir: 33, pwm: 32}`
 
 - **Arm Control:**
-  - Actuator 1: `{dir: 2, pwm: 4}`
-  - Actuator 2: `{dir: 5, pwm: 18}`
-  - Pitch: `{dir: 19, pwm: 21}`
-  - Base: `{dir: 22, pwm: 23}`
-  - Roll: `{dir: 13, pwm: 12}`
-  - Gripper: `{dir: 14, pwm: 27}`
+  - Actuator 1: `{dir: 19, pwm: 21}`
+  - Actuator 2: `{dir: 22, pwm: 23}`
+  - Pitch: `{dir: 32, pwm: 33}`
+  - Base: `{dir: 25, pwm: 26}`
+  - Roll: `{dir: 5, pwm: 4}`
+  - Gripper: `{dir: 2, pwm: 15}`
 
 
 ## Installation
