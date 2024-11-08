@@ -43,7 +43,7 @@ source devel/setup.sh
 
 ## Usage
 ### For ROS:
-USe the following command to run nodes:
+Use the following command to run nodes:
 ```bash
 rosun roverPilot <node_name>
 ```
