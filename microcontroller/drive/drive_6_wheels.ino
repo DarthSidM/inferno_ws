@@ -53,34 +53,34 @@ void loop() {
             
             // Backward
             case 2:
-                motorCtrl(leftFront, 0, speed);
-                motorCtrl(leftBack, 0, speed);
-                motorCtrl(leftMiddle, 0, speed);
+                motorCtrl(leftFront, 1, speed);
+                motorCtrl(leftBack, 1, speed);
+                motorCtrl(leftMiddle, 1, speed);
                 
-                motorCtrl(rightFront, 0, speed);
-                motorCtrl(rightBack, 0, speed);
-                motorCtrl(rightMiddle, 0, speed);
+                motorCtrl(rightFront, 1, speed);
+                motorCtrl(rightBack, 1, speed);
+                motorCtrl(rightMiddle, 1, speed);
                 break;
 
             // Left turn
             case 3:
                 motorCtrl(leftFront, 0, speed);
-                motorCtrl(leftBack, 0, speed*0.5);
+                motorCtrl(leftBack, 0, speed);
                 motorCtrl(leftMiddle, 0, speed);
                 
                 motorCtrl(rightFront, 1, speed);
-                motorCtrl(rightBack, 1, speed*0.5);
+                motorCtrl(rightBack, 1, speed);
                 motorCtrl(rightMiddle, 1, speed);
                 break;
 
             // Right turn
             case 4:
                 motorCtrl(leftFront, 1, speed);
-                motorCtrl(leftBack, 1, speed*0.5);
+                motorCtrl(leftBack, 1, speed);
                 motorCtrl(leftMiddle, 1, speed);
                 
                 motorCtrl(rightFront, 0, speed);
-                motorCtrl(rightBack, 0, speed*0.5);
+                motorCtrl(rightBack, 0, speed);
                 motorCtrl(rightMiddle, 0, speed);
                 break;
             
