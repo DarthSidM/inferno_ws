@@ -1,12 +1,16 @@
-uint8_t leftFront[] = {35,34}; //md1 {dir1,pwm1};
+// Use a float between 0 to 1
+#define frontRatio 1
+#define middleRatio 1
+#define backRatio 1
+
+uint8_t leftFront[] = {19,21}; //md1 {dir1,pwm1};
 uint8_t leftBack[] = {22,23};
 
-uint8_t rightFront[] = {13,12};//md3 {dir1,pwm1};
-uint8_t rightBack[] = {14,27};
-
-uint8_t leftMiddle[] = {26,25};//md2 {dir1,pwm1};
+uint8_t leftMiddle[] = {26,25}; //md2 {dir1,pwm1};
 uint8_t rightMiddle[] = {33,32};
 
+uint8_t rightFront[] = {13,12}; //md3 {dir1,pwm1};
+uint8_t rightBack[] = {14,27};
 
 
 void setMotor(uint8_t motor[]) {
@@ -18,16 +22,35 @@ void motorCtrl(uint8_t motor[], uint8_t dir, uint8_t pwm) {
     analogWrite(motor[1], pwm);  // Set speed (PWM)
 }
 
+void linear(int dir, int pwm){
+    motorCtrl(leftFront, dir, pwm);
+    motorCtrl(leftBack, dir, pwm);
+    motorCtrl(leftMiddle, dir, pwm);
+
+    motorCtrl(rightFront, dir, pwm);
+    motorCtrl(rightBack, dir, pwm);
+    motorCtrl(rightMiddle, dir, pwm);
+}
+
+void turn(int dir, int pwm){
+    motorCtrl(leftFront, dir, pwm*frontRatio);
+    motorCtrl(leftBack, dir, pwm*backRatio);
+    motorCtrl(leftMiddle, dir, pwm*middleRatio);
+    
+    motorCtrl(rightFront, !dir, pwm*frontRatio);
+    motorCtrl(rightBack, !dir, pwm*backRatio);
+    motorCtrl(rightMiddle, !dir, pwm*middleRatio);
+}
 
 void setup() {
-  // put your setup code here, to run once:
-  setMotor(leftFront);
-  setMotor(leftBack);
-  setMotor(leftMiddle);
-  setMotor(rightFront);
-  setMotor(rightBack);
-  setMotor(rightMiddle);
-  Serial.begin(115200);
+    // put your setup code here, to run once:
+    setMotor(leftFront);
+    setMotor(leftBack);
+    setMotor(leftMiddle);
+    setMotor(rightFront);
+    setMotor(rightBack);
+    setMotor(rightMiddle);
+    Serial.begin(115200);
 }
 
 void loop() {
@@ -35,65 +58,32 @@ void loop() {
   if (Serial.available() > 0) {
         uint8_t command = (uint8_t)Serial.read(); // First byte is the command
         uint8_t speed = (uint8_t)Serial.read(); // Read the speed as an integer
-        
-        Serial.print(command);
-        Serial.println(speed);
+
         // Control logic
         switch(command) {
             // Forward
             case 1:
-                motorCtrl(leftFront, 0, speed);
-                motorCtrl(leftBack, 0, speed);
-                motorCtrl(leftMiddle, 0, speed);
-
-                motorCtrl(rightFront, 0, speed);
-                motorCtrl(rightBack, 0, speed);
-                motorCtrl(rightMiddle, 0, speed);
+                linear(0, speed);
                 break;
-            
             // Backward
             case 2:
-                motorCtrl(leftFront, 1, speed);
-                motorCtrl(leftBack, 1, speed);
-                motorCtrl(leftMiddle, 1, speed);
-                
-                motorCtrl(rightFront, 1, speed);
-                motorCtrl(rightBack, 1, speed);
-                motorCtrl(rightMiddle, 1, speed);
+                linear(1, speed);
                 break;
-
             // Left turn
             case 3:
-                motorCtrl(leftFront, 0, speed);
-                motorCtrl(leftBack, 0, speed);
-                motorCtrl(leftMiddle, 0, speed);
-                
-                motorCtrl(rightFront, 1, speed);
-                motorCtrl(rightBack, 1, speed);
-                motorCtrl(rightMiddle, 1, speed);
+                turn(0, speed);
                 break;
-
             // Right turn
             case 4:
-                motorCtrl(leftFront, 1, speed);
-                motorCtrl(leftBack, 1, speed);
-                motorCtrl(leftMiddle, 1, speed);
-                
-                motorCtrl(rightFront, 0, speed);
-                motorCtrl(rightBack, 0, speed);
-                motorCtrl(rightMiddle, 0, speed);
+                turn(1, speed);
                 break;
-            
             // Stop
-            case 5:
-                motorCtrl(leftFront, 0, 0);
-                motorCtrl(leftBack, 0, 0);
-                motorCtrl(leftMiddle, 0, 0);
-                
-                motorCtrl(rightFront, 0, 0);
-                motorCtrl(rightBack, 0, 0);
-                motorCtrl(rightMiddle, 0, 0);
+            default:
+                linear(0, 0);
                 break;
         }
+    }
+    else{
+        Serial.println("Drive");
     }
 }
