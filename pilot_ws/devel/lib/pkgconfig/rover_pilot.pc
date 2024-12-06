@@ -1,8 +1,0 @@
-prefix=/home/siddharth/pilot_ws/devel
-
-Name: rover_pilot
-Description: Description of rover_pilot
-Version: 0.0.0
-Cflags: 
-Libs: -L${prefix}/lib 
-Requires: 

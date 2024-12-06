@@ -1,2 +1,0 @@
-rover_pilot
--DCATKIN_DEVEL_PREFIX=/home/siddharth/pilot_ws/devel -DCMAKE_INSTALL_PREFIX=/home/siddharth/pilot_ws/install -G Unix Makefiles
