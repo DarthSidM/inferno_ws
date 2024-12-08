@@ -37,23 +37,53 @@ void loop() {
         switch(num){  
             case 1:
                 motorCtrl(actuator1, dir, pwm);
+                motorCtrl(actuator2, 0, 0);
+                motorCtrl(pitch, 0, 0);
+                motorCtrl(base, 0, 0);
+                motorCtrl(roll, 0, 0);
+                motorCtrl(grip, 0, 0);
                 break;
             case 2:
+                motorCtrl(actuator1, 0, 0);
                 motorCtrl(actuator2, dir, pwm);
+                motorCtrl(pitch, 0, 0);
+                motorCtrl(base, 0, 0);
+                motorCtrl(roll, 0, 0);
+                motorCtrl(grip, 0, 0);
                 break;
             case 3:
+                motorCtrl(actuator1, 0, 0);
+                motorCtrl(actuator2, 0, 0);
                 motorCtrl(pitch, dir, pwm);
+                motorCtrl(base, 0, 0);
+                motorCtrl(roll, 0, 0);
+                motorCtrl(grip, 0, 0);
                 break;
             case 4:
+                motorCtrl(actuator1, 0, 0);
+                motorCtrl(actuator2, 0, 0);
+                motorCtrl(pitch, 0, 0);
                 motorCtrl(base, dir, pwm);
+                motorCtrl(roll, 0, 0);
+                motorCtrl(grip, 0, 0);
                 break;
             case 5:
+                motorCtrl(actuator1, 0, 0);
+                motorCtrl(actuator2, 0, 0);
+                motorCtrl(pitch, 0, 0);
+                motorCtrl(base, 0, 0);
                 motorCtrl(roll, dir, pwm);
+                motorCtrl(grip, 0, 0);
                 break;
             case 6:
+                motorCtrl(actuator1, 0, 0);
+                motorCtrl(actuator2, 0, 0);
+                motorCtrl(pitch, 0, 0);
+                motorCtrl(base, 0, 0);
+                motorCtrl(roll, 0, 0);
                 motorCtrl(grip, dir, pwm);
                 break;
-            case 7:
+            default:
                 motorCtrl(actuator1, 0, 0);
                 motorCtrl(actuator2, 0, 0);
                 motorCtrl(pitch, 0, 0);
