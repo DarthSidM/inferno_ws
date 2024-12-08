@@ -2,12 +2,16 @@
 import rospy
 from sensor_msgs.msg import Joy
 from serial_package import ctrl
+from serial.tools.list_ports import comports
 
-armObj = ctrl.arm("/dev/ttyUSB0", 115200)
+baud_rate = 115200
+
+port = ctrl.SerialPortChecker(baud_rate, 2).find_port("arm")
+armObj = ctrl.arm(port(), baud_rate)
 armObj.connect()
 
 def callback(data):
-    status = armObj.setState(round(data.axes[0]*255), round(data.axes[1]*255), round(data.axes[5]*255), data.buttons)
+    status = armObj.setState(round(data.axes[0]*255), round(data.axes[1]*255), round(data.axes[4]*255), data.buttons)
     armObj.serialWrite()
     rospy.loginfo("%s", status)
 

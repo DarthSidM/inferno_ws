@@ -84,6 +84,7 @@ void loop() {
         }
     }
     else{
-        Serial.println("Drive");
+        Serial.println("drive");
+        delay(500);
     }
 }

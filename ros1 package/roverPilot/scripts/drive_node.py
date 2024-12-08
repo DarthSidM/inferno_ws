@@ -3,7 +3,10 @@ import rospy
 from sensor_msgs.msg import Joy
 from serial_package import ctrl
 
-driveObj = ctrl.drive("/dev/ttyUSB0", 115200)
+baud_rate = 115200
+
+port = ctrl.SerialPortChecker(baud_rate, 2).find_port("drive")
+driveObj = ctrl.drive(port, baud_rate)
 driveObj.connect()
 
 def callback(data):

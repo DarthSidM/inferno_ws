@@ -1,4 +1,30 @@
 import serial
+import serial.tools.list_ports
+
+class SerialPortChecker():
+    def __init__(self, baud_rate, timeout):
+        self.baud_rate = baud_rate
+        self.timeout = timeout
+
+    def list_serial_ports(self):
+        ports = serial.tools.list_ports.comports()
+        return [port.device for port in ports if "USB" in port.description]
+
+    def find_port(self, keyword):
+        for port in self.list_serial_ports():
+            with serial.Serial(port, self.baud_rate, timeout=self.timeout) as ser:
+                print(f"Checking {port}...")
+                ser.flushInput()  # Clear input buffer
+                ser.flushOutput()  # Clear output buffer
+
+                # Read data during the timeout period
+                data = ser.readline().decode('utf-8').strip()
+                if keyword.lower() in data.lower():
+                    print(f"'{keyword}' detected on {port}!")
+                    return port
+        print("No port found.")
+        exit()
+
 
 class control():
     def __init__(self, port, baud_rate):

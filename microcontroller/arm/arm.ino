@@ -64,4 +64,8 @@ void loop() {
                 break;
         }
     }
+    else{
+    	Serial.println("arm");
+    	delay(500);
+    }
 }

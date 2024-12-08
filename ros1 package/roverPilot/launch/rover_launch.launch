@@ -1,0 +1,11 @@
+<launch>
+    <!-- Launch the Drive script -->
+    <node pkg="roverPilot" type="drive_node.py" name="drive" output="screen">
+        <!-- Optionally, you can pass arguments to the script -->
+    </node>
+
+    <!-- Launch the Arm script -->
+    <node pkg="roverPilot" type="arm_node.py" name="arm" output="screen">
+        <!-- Optionally, you can pass arguments to the script -->
+    </node>
+</launch>
