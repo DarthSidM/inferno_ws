@@ -7,9 +7,8 @@ uint8_t grip[] = {2, 15};//md3
 
 
 void setMotor(uint8_t motor[]){
-    for(int i=0; i<2; i++){
-        pinMode(motor[i], OUTPUT);
-    }
+    pinMode(motor[0], OUTPUT); // Direction pin
+    pinMode(motor[1], OUTPUT); // PWM pin
 }
 
 void motorCtrl(uint8_t motor[], uint8_t dir, uint8_t pwm){
