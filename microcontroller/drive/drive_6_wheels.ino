@@ -3,8 +3,8 @@
 #define middleRatio 1
 #define backRatio 1
 
-uint8_t leftFront[] = {19,21}; //md1 {dir1,pwm1};
-uint8_t leftBack[] = {22,23};
+uint8_t leftFront[] = {22,23}; //md1 {dir1,pwm1};
+uint8_t leftBack[] = {19,21};
 
 uint8_t leftMiddle[] = {26,25}; //md2 {dir1,pwm1};
 uint8_t rightMiddle[] = {33,32};
