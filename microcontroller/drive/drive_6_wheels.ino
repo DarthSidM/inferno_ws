@@ -6,8 +6,8 @@
 uint8_t leftFront[] = {19,21}; //md1 {dir1,pwm1};
 uint8_t leftBack[] = {22,23};
 
-uint8_t leftMiddle[] = {26,25}; //md2 {dir1,pwm1};
-uint8_t rightMiddle[] = {33,32};
+uint8_t leftMiddle[] = {33,32}; //md2 {dir1,pwm1};
+uint8_t rightMiddle[] = {26,25};
 
 uint8_t rightFront[] = {13,12}; //md3 {dir1,pwm1};
 uint8_t rightBack[] = {14,27};
