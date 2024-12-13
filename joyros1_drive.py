@@ -2,7 +2,7 @@ import rospy
 from sensor_msgs.msg import Joy
 import serial
 
-ser = serial.Serial('/dev/ttyACM0', '115200')
+ser = serial.Serial('/dev/ttyUSB0', '115200')
 
 def drive(xData,yData):
     if xData > 0:
@@ -27,7 +27,7 @@ def drive(xData,yData):
 def joy_callback(data):
     # Assuming data.axes is a list containing the axis values
     # For example, data.axes[0] is the value of the first axis
-    drive(int(data.axes[3]*255), int(data.axes[1]*255))
+    drive(int(data.axes[0]*255), -int(data.axes[1]*255))
 
 def joystick_listener():
     rospy.init_node('joystick_listener', anonymous=True)
