@@ -78,7 +78,7 @@ void loop() {
                 turn(1, speed);
                 break;
             // Stop
-            default:
+            case 5:
                 linear(0, 0);
                 break;
         }
