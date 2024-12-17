@@ -1,0 +1,9 @@
+# SensorData.msg
+float32 UV_Voltage
+float32 CO_MQ7
+float32 pH
+float32 Ozone_MQ131
+float32 NH4_MQ135
+string Methane_MQ4
+float32 Soil_Temperature
+int32 Soil_Moisture

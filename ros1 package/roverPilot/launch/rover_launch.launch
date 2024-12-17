@@ -8,4 +8,10 @@
     <node pkg="roverPilot" type="arm_node.py" name="arm" output="screen">
         <!-- Optionally, you can pass arguments to the script -->
     </node>
+
+    <!-- Launch the Arm script -->
+    <node pkg="roverPilot" type="science_node.py" name="science" output="screen">
+        <!-- Optionally, you can pass arguments to the script -->
+    </node>
+
 </launch>

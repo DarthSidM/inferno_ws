@@ -34,7 +34,7 @@ class control():
 
     def connect(self):
         self.serial_port = serial.Serial(self.port, self.baud_rate)
-    
+
     def serialWrite(self):
         command = bytearray(self.state)
         self.serial_port.write(command)
@@ -91,7 +91,7 @@ class arm(control):
         elif yData < 0 and buttons[0] == 1:
             self.state = [2, 1, abs(yData)]
             status = f"Actuator2\tDir: 1\tPWM: {abs(yData)}"
-        
+
 
         #Pitch
         elif pitchData:
@@ -101,7 +101,7 @@ class arm(control):
             else:
                 self.state = [3, 1, 127]
                 status = f"Pitch\tDir: 1\tPWM: 127"
-        
+
         #Gripper
         elif buttons[1]:
             self.state = [6, 0, 255]
@@ -109,9 +109,68 @@ class arm(control):
         elif buttons[3]:
             self.state = [6, 1, 255]
             status = f"Gripper\tDir: 1\tPWM: 255"
-        
+
         else:
             self.state = [7, 0, 0]
             status = "Stop"
-        
+
         return "Arm State: " + status
+
+class science():
+    def __init__(self, port, baud_rate):
+        self.port = port
+        self.baud_rate = baud_rate
+        self.state = [0]
+        self.stepArr = [67,67,66]
+        self.iter = 0
+        self.pattern = r"UV Voltage: ([\d.]+) CO (MQ-7): ([\d.]+) pH: ([\d.]+) Ozone (MQ-131): ([\d.]+) NH4 (MQ-135): ([\d.]+) Methane (MQ-4): ([\d.]+|nan) Soil Temp: ([\d.-]+) Soil Moisture: (\d+)"
+
+    def connect(self):
+        self.serial_port = serial.Serial(self.port, self.baud_rate)
+
+    def setState(self, stepButton, relayButton):
+        if stepButton == 1:
+            if self.iter == 3:
+                self.iter = 0
+            self.state[0] = self.stepArr[self.iter]
+            self.iter += 1
+            return "Stepper Rotating 120 degree."
+        elif relayButton == 1:
+            self.state[0] = 201
+            return "Relay State Changed"
+        else:
+            self.state[0] = 0
+            return "Stepper Stopped"
+
+    def serialWrite(self):
+        command = bytearray(self.state)
+        self.serial_port.write(command)
+
+    def readState(self):
+        data = self.serial_port.readline().decode('utf-8')
+        # Create a dictionary to store parsed values
+        entry_dict = {}
+
+        # Extract values manually for each sensor reading using string operations
+        try:
+            entry_dict['UV Voltage'] = float(data.split("CO (MQ-7):")[0].split("UV Voltage:")[1].strip())
+            entry_dict['CO (MQ-7)'] = float(data.split("CO (MQ-7):")[1].split("pH:")[0].strip())
+            entry_dict['pH'] = float(data.split("pH:")[1].split("Ozone (MQ-131):")[0].strip())
+            entry_dict['Ozone (MQ-131)'] = float(data.split("Ozone (MQ-131):")[1].split("NH4 (MQ-135):")[0].strip())
+            entry_dict['NH4 (MQ-135)'] = float(data.split("NH4 (MQ-135):")[1].split("Methane (MQ-4):")[0].strip())
+            entry_dict['Methane (MQ-4)'] = data.split("Methane (MQ-4):")[1].split("Soil Temp:")[0].strip()
+            entry_dict['Soil Temp'] = float(data.split("Soil Temp:")[1].split("Soil Moisture:")[0].strip())
+            entry_dict['Soil Moisture'] = int(data.split("Soil Moisture:")[1].strip())
+        except Exception as e:
+            print(f"Error parsing data: {e}")
+            entry_dict['UV Voltage'] = 0
+            entry_dict['CO (MQ-7)'] = 0
+            entry_dict['pH'] =0
+            entry_dict['Ozone (MQ-131)'] =0
+            entry_dict['NH4 (MQ-135)'] =0
+            entry_dict['Methane (MQ-4)'] = "fuck off"
+            entry_dict['Soil Temp'] = 0
+            entry_dict['Soil Moisture'] = 0
+
+
+        return entry_dict
