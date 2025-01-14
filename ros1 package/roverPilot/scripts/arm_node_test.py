@@ -6,7 +6,7 @@ from serial_package import ctrl
 armObj = ctrl.arm("/dev/ttyUSB0", 115200)
 
 def callback(data):
-    status = armObj.setState(round(data.axes[0]*255), round(data.axes[1]*255), data.axes[5]*255, data.buttons)
+    status = armObj.setState(round(data.axes[0]*255), round(data.axes[1]*255), round(data.axes[4]*255), round(data.axes[3]*255), data.buttons)
     rospy.loginfo("%s", status)
 
 def listener():
