@@ -61,14 +61,14 @@ class drive(control):
 
 
 class arm(control):
-    def setState(self, xData, yData, pitchData, buttons):
+    def setState(self, xData, yData, pitchData, baseData, buttons):
         #Button is 0
         if xData > 0 and buttons[0] == 0:
-            self.state = [4, 0, abs(xData)]
-            status = f"Base\tDir: 0\tPWM: {abs(xData)}"
+            self.state = [5, 0, abs(xData)]
+            status = f"Roll\tDir: 0\tPWM: {abs(xData)}"
         elif xData < 0 and buttons[0] == 0:
-            self.state = [4, 1, abs(xData)]
-            status = f"Base\tDir: 1\tPWM: {abs(xData)}"
+            self.state = [5, 1, abs(xData)]
+            status = f"Roll\tDir: 1\tPWM: {abs(xData)}"
 
         elif yData > 0 and buttons[0] == 0:
             self.state = [1, 0, abs(yData)]
@@ -80,11 +80,11 @@ class arm(control):
 
         #Button is 1
         elif xData > 0 and buttons[0] == 1:
-            self.state = [5, 0, abs(xData)]
-            status = f"Roll\tDir: 0\tPWM: {abs(xData)}"
+            self.state = [6, 0, abs(xData)]
+            status = f"PitchG\tDir: 0\tPWM: {abs(xData)}"
         elif xData < 0 and buttons[0] == 1:
-            self.state = [5, 1, abs(xData)]
-            status = f"Roll\tDir: 1\tPWM: {abs(xData)}"
+            self.state = [6, 1, abs(xData)]
+            status = f"PitchG\tDir: 1\tPWM: {abs(xData)}"
         elif yData > 0 and buttons[0] == 1:
             self.state = [2, 0, abs(yData)]
             status = f"Actuator2\tDir: 0\tPWM: {abs(yData)}"
@@ -102,16 +102,24 @@ class arm(control):
                 self.state = [3, 1, 127]
                 status = f"Pitch\tDir: 1\tPWM: 127"
 
+        elif baseData:
+            if baseData > 0:
+                self.state = [4,0,255]
+                status = f"Base\tDir: 0\tPWM: 255"
+            else:
+                self.state = [4,1,255]
+                status = f"Base\tDir: 1\tPWM: 255"
+
         #Gripper
         elif buttons[1]:
-            self.state = [6, 0, 255]
+            self.state = [7, 0, 255]
             status = f"Gripper\tDir: 0\tPWM: 255"
         elif buttons[3]:
-            self.state = [6, 1, 255]
+            self.state = [7, 1, 255]
             status = f"Gripper\tDir: 1\tPWM: 255"
 
         else:
-            self.state = [7, 0, 0]
+            self.state = [8, 0, 0]
             status = "Stop"
 
         return "Arm State: " + status
