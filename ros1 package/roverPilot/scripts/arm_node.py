@@ -11,7 +11,7 @@ armObj = ctrl.arm(port(), baud_rate)
 armObj.connect()
 
 def callback(data):
-    status = armObj.setState(round(data.axes[0]*255), round(data.axes[1]*255), round(data.axes[4]*255), data.buttons)
+    status = armObj.setState(round(data.axes[0]*255), round(data.axes[1]*255), round(data.axes[4]*255), round(data.axes[3]*255), data.buttons)
     armObj.serialWrite()
     rospy.loginfo("%s", status)
 
