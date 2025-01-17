@@ -33,13 +33,13 @@ void linear(int dir, int pwm){
 }
 
 void turn(int dir, int pwm){
-    motorCtrl(leftFront, dir, pwm*frontRatio);
-    motorCtrl(leftBack, dir, pwm*backRatio);
-    motorCtrl(leftMiddle, dir, pwm*middleRatio);
+    motorCtrl(leftFront, !dir, pwm*frontRatio);
+    motorCtrl(leftBack, !dir, pwm*backRatio);
+    motorCtrl(leftMiddle, !dir, pwm*middleRatio);
     
-    motorCtrl(rightFront, !dir, pwm*frontRatio);
-    motorCtrl(rightBack, !dir, pwm*backRatio);
-    motorCtrl(rightMiddle, !dir, pwm*middleRatio);
+    motorCtrl(rightFront, dir, pwm*frontRatio);
+    motorCtrl(rightBack, dir, pwm*backRatio);
+    motorCtrl(rightMiddle, dir, pwm*middleRatio);
 }
 
 void ctrl(void *pvParameters) {
