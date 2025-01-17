@@ -1,6 +1,6 @@
 // Use a float between 0 to 1
 #define frontRatio 1
-#define middleRatio 1
+#define middleRatio 0.3
 #define backRatio 1
 
 uint8_t leftFront[] = {19,21}; //md1 {dir1,pwm1};
@@ -25,11 +25,11 @@ void motorCtrl(uint8_t motor[], uint8_t dir, uint8_t pwm) {
 void linear(int dir, int pwm){
     motorCtrl(leftFront, dir, pwm);
     motorCtrl(leftBack, dir, pwm);
-    motorCtrl(leftMiddle, dir, pwm);
+    motorCtrl(leftMiddle, dir, pwm*(6.0/7));
 
     motorCtrl(rightFront, dir, pwm);
     motorCtrl(rightBack, dir, pwm);
-    motorCtrl(rightMiddle, dir, pwm);
+    motorCtrl(rightMiddle, dir, pwm*(6.0/7));
 }
 
 void turn(int dir, int pwm){
@@ -42,8 +42,44 @@ void turn(int dir, int pwm){
     motorCtrl(rightMiddle, !dir, pwm*middleRatio);
 }
 
+void ctrl(void *pvParameters) {
+    while (true) {
+        if (Serial.available() > 0) {
+            uint8_t command = (uint8_t)Serial.read(); // First byte is the command
+            uint8_t speed = (uint8_t)Serial.read(); // Read the speed as an integer
+            
+            Serial.print(command);
+            Serial.print(" ");
+            Serial.println(speed);
+            // Control logic
+            switch(command) {
+                // Forward
+                case 1:
+                    linear(0, speed);
+                    break;
+                // Backward
+                case 2:
+                    linear(1, speed);
+                    break;
+                // Left turn
+                case 3:
+                    turn(0, speed);
+                    break;
+                // Right turn
+                case 4:
+                    turn(1, speed);
+                    break;
+                // Stop
+                case 5:
+                    linear(0, 0);
+                    break;
+            }
+        }
+    }
+}
+
+
 void setup() {
-    // put your setup code here, to run once:
     setMotor(leftFront);
     setMotor(leftBack);
     setMotor(leftMiddle);
@@ -51,40 +87,12 @@ void setup() {
     setMotor(rightBack);
     setMotor(rightMiddle);
     Serial.begin(115200);
+
+    xTaskCreatePinnedToCore(ctrl, "Control", 10000, NULL, 1, NULL, 0);
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
-  if (Serial.available() > 0) {
-        uint8_t command = (uint8_t)Serial.read(); // First byte is the command
-        uint8_t speed = (uint8_t)Serial.read(); // Read the speed as an integer
-
-        // Control logic
-        switch(command) {
-            // Forward
-            case 1:
-                linear(0, speed);
-                break;
-            // Backward
-            case 2:
-                linear(1, speed);
-                break;
-            // Left turn
-            case 3:
-                turn(0, speed);
-                break;
-            // Right turn
-            case 4:
-                turn(1, speed);
-                break;
-            // Stop
-            case 5:
-                linear(0, 0);
-                break;
-        }
-    }
-    else{
-        Serial.println("drive");
-        delay(500);
-    }
+    // Main loop does nothing, tasks are running on cores
+    Serial.println("drive");
+    delay(1000);
 }
