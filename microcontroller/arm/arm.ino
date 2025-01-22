@@ -88,7 +88,7 @@ void ctrl(void *pvParameters) {
                     motorCtrl(differential2, 0, 0);
                     motorCtrl(grip, dir, pwm);
                     break;
-                default:
+                case 8:
                     motorCtrl(actuator1, 0, 0);
                     motorCtrl(actuator2, 0, 0);
                     motorCtrl(pitch, 0, 0);
